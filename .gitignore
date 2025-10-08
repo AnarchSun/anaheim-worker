@@ -51,3 +51,7 @@ logs/
 # -------------------
 patches/
 dev_errors.json
+anchor/target/
+anchor/target/types/
+*.log
+data/*.json
