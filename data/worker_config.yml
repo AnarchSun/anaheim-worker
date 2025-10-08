@@ -1,9 +1,15 @@
-# anarcrypt.sol/anaheim-worker/data/worker_config.yml
-repo_path: /work/project
+# ------------------------
+# Anaheim Worker Config anarcrypt.sol/anaheim-worker/data/worker_config.yml
+# ------------------------
+
+# Chemins locaux (pour .venv) — override si exécuté dans Docker via volumes
+repo_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
+gov_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance
+db_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
 worker_branch: Orion
-orion_threshold_errors: 999         # Orion libre (changeable)
-roots_error_threshold: 6            # si <=6 erreurs -> push sur Roots (collab)
-repeat_threshold: 2                 # après X occurrences d'une même erreur, consider learned
+roots_error_threshold: 6
+orion_threshold_errors: 999
+repeat_threshold: 2
 llm:
   type: gpt4all
   cmd: gpt4all
@@ -16,13 +22,3 @@ playwright:
   click_selectors:
     - "button[data-test=initialize]"
     - "button[data-test=submit]"
-    - services:
-        orion-worker:
-          build: .
-          volumes:
-            - ../config:/work/src/config   # <-- mappe ton dossier local config
-            - ../project:/work/project
-            - ../governance:/work/governance
-            - ../data:/work/data
-             - ./config:/work/config:rw
-

@@ -5,6 +5,7 @@ import subprocess
 import time
 import traceback
 from pathlib import Path
+from submodules_manager import update_submodules
 
 import yaml
 from git import Repo, InvalidGitRepositoryError, NoSuchPathError
@@ -31,22 +32,21 @@ except yaml.YAMLError as _yaml_err:
 # Paths principaux
 REPO = Path(os.getenv("REPO_PATH", cfg.get("repo_path", REPO_PATH_FALLBACK))).resolve()
 PROJECT_PATH = REPO
-DB_PATH = Path(os.getenv("DB_PATH", cfg.get("db_path", REPO.parent / "data/memory.sqlite"))).resolve()
+DB_PATH = Path(os.getenv("DB_PATH", cfg.get("db_path", "/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite"))).resolve()
 BRANCH = os.getenv("WORKER_BRANCH", cfg.get("worker_branch", "Orion"))
 ROOTS_THRESHOLD = cfg.get("roots_error_threshold", 6)
 ORION_THRESHOLD_ERRORS = cfg.get("orion_threshold_errors", 999)
 REPEAT_THRESHOLD = cfg.get("repeat_threshold", 2)
+GOV_PATH = Path(os.getenv("GOV_PATH", cfg.get("gov_path", PROJECT_PATH.parent / "governance"))).resolve()
 
-# Gouvernance
-default_gov_path = cfg.get("gov_path", REPO.parent / "governance")
-GOV_PATH = Path(os.getenv("GOV_PATH", default_gov_path)).resolve()
-if not GOV_PATH.exists() and (REPO.parent / "governance").exists():
-    GOV_PATH = (REPO.parent / "governance").resolve()
+# Fallback si GOV_PATH inexistant
+if not GOV_PATH.exists() and (PROJECT_PATH.parent / "governance").exists():
+    GOV_PATH = (PROJECT_PATH.parent / "governance").resolve()
 governance_dir = GOV_PATH
 
 # Logs init
 LOG_DIR = PROJECT_PATH.parent / "logs"
-LOG_DIR.mkdir(exist_ok=True)
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 LOG_FILE = LOG_DIR / "anaheim_worker.log"
 
 def log(msg):
@@ -98,14 +98,22 @@ def fingerprint_error(err):
 # -----------------------
 # TypeScript / resolver
 # -----------------------
-def run_tsc(paths=None):
+def run_tsc(paths=None, timeout=120):
     paths = paths or [PROJECT_PATH]
     paths = [p for p in paths if p.exists()]
     combined_log = PROJECT_PATH / "ts-errors.log"
     with open(combined_log, "w") as f:
         for path in paths:
-            subprocess.run(["npx", "tsc", "--noEmit"], cwd=path, stdout=f, stderr=subprocess.STDOUT, check=False)
+            subprocess.run(
+                ["npx", "tsc", "--noEmit"],
+                cwd=path,
+                stdout=f,
+                stderr=subprocess.STDOUT,
+                check=False,
+                timeout=timeout
+            )
     return combined_log
+
 
 def run_resolver(errors_file: Path):
     result = subprocess.run(["node", "src/utils/resolver/index.js", str(errors_file)],
@@ -247,6 +255,7 @@ def collect_errors() -> tuple[list, str]:
 # -----------------------
 # Main loop
 # -----------------------
+update_submodules(branch=BRANCH)
 
 def main_loop():
     repo = repo_open()
@@ -266,8 +275,8 @@ def main_loop():
             export_json()
         except Exception as ex:
             log(f"💥 Worker loop crashed: {ex}\n{traceback.format_exc()}")
-        log("⏱️ Sleeping 5 minutes before next run...")
-        time.sleep(1)
+log("⏱️ Sleeping 10 seconds before next run...")
+time.sleep(10)
 
 if __name__ == "__main__":
     main_loop()

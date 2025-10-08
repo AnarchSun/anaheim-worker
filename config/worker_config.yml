@@ -1,15 +1,30 @@
+# ------------------------
+# Anaheim Worker Config
+# ------------------------
+
+# Chemins locaux (pour .venv) — override si exécuté dans Docker via volumes
 repo_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
 gov_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance
 db_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
+
+# Branche worker
 worker_branch: Orion
+
+# Seuils
 roots_error_threshold: 6
 orion_threshold_errors: 999
 repeat_threshold: 2
+
+# LLM
 llm:
   type: gpt4all
   cmd: gpt4all
+
+# GitHub (token via env)
 github:
   token_env: GITHUB_TOKEN
+
+# Playwright tests
 playwright:
   pages:
     - http://localhost:3000/
@@ -17,3 +32,10 @@ playwright:
   click_selectors:
     - "button[data-test=initialize]"
     - "button[data-test=submit]"
+
+# Docker volume mapping (si utilisé dans container)
+docker_volumes:
+  - ../config:/work/src/config
+  - ../project:/work/project
+  - ../governance:/work/governance
+  - ../data:/work/data
