@@ -1,6 +1,0 @@
-[2025-10-08T03:19:17.076589+00:00] === auto_patch_worker_full START ===
-[2025-10-08T03:19:17.078407+00:00] Current branch: main
-[2025-10-08T03:19:17.078490+00:00] Running tsc --noEmit (governance) ...
-[2025-10-08T03:19:23.306674+00:00] TS errors: 0, warnings: 0
-[2025-10-08T03:19:23.306908+00:00] Resolver not found: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-putsch-self-governance-solana-dapp/governance/utils/resolver/index.js
-[2025-10-08T03:19:23.306963+00:00] No resolver actions. exiting.
