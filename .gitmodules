@@ -1,0 +1,9 @@
+[submodule "anaheim-putsch-self-governance-solana-dapp"]
+	path = anaheim-putsch-self-governance-solana-dapp
+	url = git@github.com:AnarchSun/anaheim-putsch-self-governance-solana-dapp.git
+[submodule "governance"]
+	path = governance
+	url = git@github.com:AnarchSun/governance-ui.git
+[submodule "candy-machine"]
+	path = candy-machine
+	url = git@github.com:AnarchSun/mpl-candy-machine.git

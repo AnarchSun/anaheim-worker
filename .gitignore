@@ -1,0 +1,53 @@
+# -------------------
+# Python
+# -------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite
+*.db
+*.egg-info/
+*.egg
+*.venv/
+.venv/
+env/
+ENV/
+*.env
+
+# -------------------
+# Node / pnpm
+# -------------------
+node_modules/
+pnpm-lock.yaml
+dist/
+build/
+.cache/
+*.log
+
+# -------------------
+# Docker
+# -------------------
+docker-compose.override.yml
+*.dockerignore
+
+# -------------------
+# Logs
+# -------------------
+logs/
+
+# -------------------
+# IDE / Editor
+# -------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.DS_Store
+
+# -------------------
+# AnaCrypt patches / temp
+# -------------------
+patches/
+dev_errors.json
