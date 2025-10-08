@@ -260,23 +260,27 @@ update_submodules(branch=BRANCH)
 def main_loop():
     repo = repo_open()
     log("🛠️ Anaheim Worker main_loop started")
-    while True:
-        try:
-            paths_to_check = [PROJECT_PATH]
-            if governance_dir.exists():
-                paths_to_check.append(governance_dir)
-            ts_errors_file = run_tsc(paths=paths_to_check)
-            ts_actions = run_resolver(ts_errors_file)
-            apply_ts_actions(ts_actions)
-            errs, _ = collect_errors()
-            analyze_and_fix(errs)
-            devtools_check()
-            apply_strategy_and_commit(repo, errs)
-            export_json()
-        except Exception as ex:
-            log(f"💥 Worker loop crashed: {ex}\n{traceback.format_exc()}")
-log("⏱️ Sleeping 10 seconds before next run...")
-time.sleep(10)
+while True:
+    try:
+        paths_to_check = [PROJECT_PATH]
+        if governance_dir.exists():
+            paths_to_check.append(governance_dir)
+        ts_errors_file = run_tsc(paths=paths_to_check)
+        ts_actions = run_resolver(ts_errors_file)
+        apply_ts_actions(ts_actions)
+        errs, _ = collect_errors()
+        analyze_and_fix(errs)
+        # passe un timeout plus court si possible
+        devtools_check()
+        apply_strategy_and_commit(Repo, errs)
+        export_json()
+    except Exception as ex:
+        log(f"💥 Worker loop crashed: {ex}\n{traceback.format_exc()}")
+
+    # Sleep inside the loop
+    log("⏱️ Sleeping 10 seconds before next run...")
+    time.sleep(10)
+
 
 if __name__ == "__main__":
     main_loop()

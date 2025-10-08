@@ -3,10 +3,6 @@
     "url": "http://localhost:3000/",
     "console": [
       {
-        "type": "error",
-        "text": "TypeError: Failed to fetch\n    at c.send (http://localhost:3000/bcc32be51da97269a279ee0a8c4b0f8957276b2f.js?meteor_js_resource=true:7:56540)\n    at http://localhost:3000/bcc32be51da97269a279ee0a8c4b0f8957276b2f.js?meteor_js_resource=true:7:54140\n    at http://localhost:3000/bcc32be51da97269a279ee0a8c4b0f8957276b2f.js?meteor_js_resource=true:337:50362\n    at c.send (http://localhost:3000/bcc32be51da97269a279ee0a8c4b0f8957276b2f.js?meteor_js_resource=true:7:57547)\n    at http://localhost:3000/bcc32be51da97269a279ee0a8c4b0f8957276b2f.js?meteor_js_resource=true:7:54140\n    at eval (/client/ecdh.ts:1:1221)"
-      },
-      {
         "type": "log",
         "text": "FlowRouter.notFound is deprecated, use FlowRouter.route('*', { /*...*/ }) instead!"
       },
