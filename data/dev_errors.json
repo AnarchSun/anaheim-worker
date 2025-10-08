@@ -3,10 +3,6 @@
     "url": "http://localhost:3000/",
     "console": [
       {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
-      },
-      {
         "type": "log",
         "text": "FlowRouter.notFound is deprecated, use FlowRouter.route('*', { /*...*/ }) instead!"
       },
