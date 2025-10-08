@@ -1,0 +1,7 @@
+[2025-10-08T03:25:59.781521+00:00] === auto_patch_worker_full START ===
+[2025-10-08T03:25:59.783853+00:00] Current branch: main
+[2025-10-08T03:25:59.783985+00:00] Running tsc --noEmit (governance) ...
+[2025-10-08T03:26:08.039233+00:00] TS errors: 0, warnings: 0
+[2025-10-08T03:26:08.039402+00:00] Calling resolver node module...
+[2025-10-08T03:26:08.065141+00:00] Resolver produced no JSON. stderr: 
+[2025-10-08T03:26:08.065265+00:00] No resolver actions. exiting.

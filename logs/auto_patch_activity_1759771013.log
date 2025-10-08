@@ -1,0 +1,4 @@
+[2025-10-06T17:16:53.571785+00:00] === auto_patch_worker_full START ===
+[2025-10-06T17:16:53.572287+00:00] Command failed: ['git', 'rev-parse', '--abbrev-ref', 'HEAD'] -- [Errno 2] No such file or directory: PosixPath('/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-putsch-self-governance-solana-dapp/src/anaheim-putsch-self-governance-solana-dapp')
+[2025-10-06T17:16:53.572354+00:00] Current branch: None
+[2025-10-06T17:16:53.572403+00:00] Cannot determine git branch. Exiting.

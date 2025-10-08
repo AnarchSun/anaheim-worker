@@ -1,0 +1,19 @@
+repo_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
+gov_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance
+db_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
+worker_branch: Orion
+roots_error_threshold: 6
+orion_threshold_errors: 999
+repeat_threshold: 2
+llm:
+  type: gpt4all
+  cmd: gpt4all
+github:
+  token_env: GITHUB_TOKEN
+playwright:
+  pages:
+    - http://localhost:3000/
+    - http://localhost:3000/state-mining
+  click_selectors:
+    - "button[data-test=initialize]"
+    - "button[data-test=submit]"

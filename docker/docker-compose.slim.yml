@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  orion-worker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.worker
+    environment:
+      REPO_PATH: /work/project
+      GOV_PATH: /work/governance
+      DB_PATH: /work/data/memory.sqlite
+      PATCH_DIR: /work/data/patches
+      FIXES_JSON: /work/data/fixes.json
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      LLM_CMD: ${LLM_CMD:-gpt4all}
+    volumes:
+      - ../anaheim-putsch-self-governance-solana-dapp:/work/project:rw
+      - ../governance:/work/governance:rw
+      - ./data:/work/data:rw
+      - ./config:/work/config:rw
+      - ./scripts:/work/scripts:rw
+    restart: "no"   # désactivé pour debug
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"

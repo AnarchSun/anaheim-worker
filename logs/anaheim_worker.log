@@ -1,0 +1,751 @@
+nohup: ignoring input
+nohup: ignoring input
+[2025-10-08 14:02:11] 🚀 Starting Anaheim Worker...
+[2025-10-08 14:02:11] 📂 REPO_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp (exists)
+[2025-10-08 14:02:11] 📂 GOV_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance (exists)
+[2025-10-08 14:02:11] 📂 DB_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
+[2025-10-08 14:02:11] 🌿 BRANCH=Orion
+[2025-10-08 14:02:11] ⚙️ ROOTS_THRESHOLD=6
+[2025-10-08 14:02:11] 🧠 ORION_THRESHOLD_ERRORS=999
+[2025-10-08 14:02:11] 🔁 REPEAT_THRESHOLD=2
+[2025-10-08 14:02:11] 🔍 Opening repo at /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
+[2025-10-08 14:02:11] 🛠️ Anaheim Worker main_loop started
+[2025-10-08 14:02:36] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:02:57] 🚀 Starting Anaheim Worker...
+[2025-10-08 14:02:57] 📂 REPO_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp (exists)
+[2025-10-08 14:02:57] 📂 GOV_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance (exists)
+[2025-10-08 14:02:57] 📂 DB_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
+[2025-10-08 14:02:57] 🌿 BRANCH=Orion
+[2025-10-08 14:02:57] ⚙️ ROOTS_THRESHOLD=6
+[2025-10-08 14:02:57] 🧠 ORION_THRESHOLD_ERRORS=999
+[2025-10-08 14:02:57] 🔁 REPEAT_THRESHOLD=2
+[2025-10-08 14:02:57] 🔍 Opening repo at /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
+[2025-10-08 14:02:57] 🛠️ Anaheim Worker main_loop started
+[2025-10-08 14:03:18] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:03:45] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:04:09] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:04:35] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:05:00] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:05:26] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:05:50] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:06:19] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:06:45] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:07:10] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:07:33] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:07:56] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:08:21] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:08:47] ⏱️ Sleeping 5 minutes before next run...
+[2025-10-08 14:09:08] push failed: Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+[2025-10-08 14:09:08] ⏱️ Sleeping 5 minutes before next run...
+🚀 Starting Anaheim Worker...
+📂 REPO_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp (exists)
+📂 GOV_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance (exists)
+📂 DB_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
+🌿 BRANCH=Orion
+⚙️ ROOTS_THRESHOLD=6
+🧠 ORION_THRESHOLD_ERRORS=999
+🔁 REPEAT_THRESHOLD=2
+🔍 Opening repo at /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
+🛠️ Anaheim Worker main_loop started
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+🚀 Starting Anaheim Worker...
+📂 REPO_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp (exists)
+📂 GOV_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance (exists)
+📂 DB_PATH=/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
+🌿 BRANCH=Orion
+⚙️ ROOTS_THRESHOLD=6
+🧠 ORION_THRESHOLD_ERRORS=999
+🔁 REPEAT_THRESHOLD=2
+🔍 Opening repo at /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
+🛠️ Anaheim Worker main_loop started
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed ⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed Cmd('git') failed due to: exit code(128)
+  cmdline: git push --set-upstream origin roots
+  stderr: 'ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.'
+⏱️ Sleeping 5 minutes before next run...
+push failed 

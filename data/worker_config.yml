@@ -1,0 +1,28 @@
+# anarcrypt.sol/anaheim-worker/data/worker_config.yml
+repo_path: /work/project
+worker_branch: Orion
+orion_threshold_errors: 999         # Orion libre (changeable)
+roots_error_threshold: 6            # si <=6 erreurs -> push sur Roots (collab)
+repeat_threshold: 2                 # après X occurrences d'une même erreur, consider learned
+llm:
+  type: gpt4all
+  cmd: gpt4all
+github:
+  token_env: GITHUB_TOKEN
+playwright:
+  pages:
+    - http://localhost:3000/
+    - http://localhost:3000/state-mining
+  click_selectors:
+    - "button[data-test=initialize]"
+    - "button[data-test=submit]"
+    - services:
+        orion-worker:
+          build: .
+          volumes:
+            - ../config:/work/src/config   # <-- mappe ton dossier local config
+            - ../project:/work/project
+            - ../governance:/work/governance
+            - ../data:/work/data
+             - ./config:/work/config:rw
+

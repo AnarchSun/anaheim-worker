@@ -1,0 +1,11 @@
+# anarcrypt.sol/anaheim-worker/docker/.dockerignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.git/
+node_modules/
+data/
+*.sqlite
+*.log

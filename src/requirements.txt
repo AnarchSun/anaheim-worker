@@ -1,0 +1,6 @@
+gitpython
+requests
+playwright
+pyyaml
+python-dotenv
+sqlalchemy

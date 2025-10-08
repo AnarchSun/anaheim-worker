@@ -1,0 +1,28 @@
+[
+  {
+    "url": "http://localhost:3000/",
+    "console": [
+      {
+        "type": "log",
+        "text": "FlowRouter.notFound is deprecated, use FlowRouter.route('*', { /*...*/ }) instead!"
+      },
+      {
+        "type": "log",
+        "text": "service worker: installed"
+      }
+    ]
+  },
+  {
+    "url": "http://localhost:3000/state-mining",
+    "console": [
+      {
+        "type": "log",
+        "text": "FlowRouter.notFound is deprecated, use FlowRouter.route('*', { /*...*/ }) instead!"
+      },
+      {
+        "type": "log",
+        "text": "FlowRouter.notFound is deprecated, use FlowRouter.route('*', { /*...*/ }) instead!"
+      }
+    ]
+  }
+]

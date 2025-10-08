@@ -1,0 +1,6 @@
+[2025-10-08T03:00:10.482540+00:00] === auto_patch_worker_full START ===
+[2025-10-08T03:00:10.484446+00:00] Current branch: Orion
+[2025-10-08T03:00:10.484528+00:00] Running tsc --noEmit ...
+[2025-10-08T03:00:56.618485+00:00] TS errors: 0, warnings: 0
+[2025-10-08T03:00:56.618738+00:00] Resolver not found: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-putsch-self-governance-solana-dapp/src/utils/resolver/index.js
+[2025-10-08T03:00:56.618797+00:00] No resolver actions. exiting.
