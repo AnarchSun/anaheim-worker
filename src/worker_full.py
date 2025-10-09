@@ -14,6 +14,7 @@ from db import init_db, export_json, add_or_increment, get_fix
 from git_utils import create_branch_if_missing, commit_all
 from github_search import search_code
 from playwright_runner import run_checks
+from playwright.sync_api import sync_playwright, TimeoutError, Error as PWError, TargetClosedError
 
 # -----------------------
 # Config paths - robust
@@ -77,6 +78,7 @@ def repo_open():
     except (InvalidGitRepositoryError, NoSuchPathError) as e:
         log(f"❌ Repo Git invalide: {e}")
         return None
+
 
 # -----------------------
 # Command runner
@@ -216,7 +218,19 @@ def analyze_and_fix(errors):
         except Exception as _ex_process:
             log(f"💥 Error processing single_error in analyze_and_fix: {_ex_process}\n{traceback.format_exc()}")
 
-
+def run_checks_safe(page, url, timeout=15000):
+    try:
+        page.goto(url, timeout=timeout)
+        # ton code de check ici
+    except TargetClosedError:
+        print("[⚠️] Target closed, restarting page...")
+        page = page.context.new_page()  # recrée la page
+        page.goto(url, timeout=timeout)
+    except TimeoutError:
+        print(f"[⚠️] Timeout reached for {url}, skipping...")
+    except PWError as e:
+        print(f"[❌] Playwright error: {e}")
+    return page
 # -----------------------
 # Strategy & commit
 # -----------------------
@@ -260,31 +274,40 @@ update_submodules(branch=BRANCH)
 def main_loop():
     repo = repo_open()
     log("🛠️ Anaheim Worker main_loop started")
-while True:
-    try:
-        paths_to_check = [PROJECT_PATH]
-        if governance_dir.exists():
-            paths_to_check.append(governance_dir)
-        ts_errors_file = run_tsc(paths=paths_to_check)
-        ts_actions = run_resolver(ts_errors_file)
-        apply_ts_actions(ts_actions)
-        errs, _ = collect_errors()
-        analyze_and_fix(errs)
-        # passe un timeout plus court si possible
-        devtools_check()
-        apply_strategy_and_commit(Repo, errs)
-        export_json()
-    except Exception as ex:
-        log(f"💥 Worker loop crashed: {ex}\n{traceback.format_exc()}")
+    while True:
+        try:
+            paths_to_check = [PROJECT_PATH]
+            if governance_dir.exists():
+                paths_to_check.append(governance_dir)
 
-    # Sleep inside the loop
-    log("⏱️ Sleeping 10 seconds before next run...")
-    time.sleep(10)
+            ts_errors_file = run_tsc(paths=paths_to_check)
+            ts_actions = run_resolver(ts_errors_file)
+            apply_ts_actions(ts_actions)
+            errs, _ = collect_errors()
+            analyze_and_fix(errs)
+            devtools_check()
+            apply_strategy_and_commit(repo, errs)
+            export_json()
 
+        except Exception as ex:
+            log(f"💥 Worker loop crashed: {ex}\n{traceback.format_exc()}")
+
+with sync_playwright() as pw:
+    browser = pw.chromium.launch(headless=True)
+    context = browser.new_context()
+    page = context.new_page()
+
+    while True:
+        try:
+            page = run_checks_safe(page, "http://localhost:3001")
+            # tes autres checks...
+            time.sleep(10)
+        except KeyboardInterrupt:
+            print("Stopping worker...")
+            break
+
+        log("⏱️ Sleeping 10 seconds before next run...")
+        time.sleep(10)
 
 if __name__ == "__main__":
     main_loop()
-
-
-def ensure_branch_exists():
-    return None
