@@ -1,0 +1,25 @@
+# FILE: anarcrypt.sol/anaheim-worker/config/solana.yml
+# 🔗 Configuration réseau Solana – centralisée et lisible par tous les modules.
+
+network:
+  cluster: devnet
+  rpc_endpoint: https://api.devnet.solana.com
+  ws_endpoint: wss://api.devnet.solana.com
+  explorer: https://explorer.solana.com/?cluster=devnet
+
+wallet:
+  pubkey: 9RGSbPxpKjSsVd57PfgQnCgBGoZ8upjTeFqCH4wowdfx
+  keypair_path: /work/keys/anaheim-worker.json
+  auto_airdrop: true
+
+programs:
+  anaheim_core:
+    id: 83hJCMp2PeJYgUhHBRmhEbt2ofvzKayvebT9YAU8rURB
+    description: Core Anaheim DAO governance contract
+  anarcrypt_mint:
+    id: 2ankyZpNRypT5x8xGvZXSxfJLy2pRHbhXNSAmio7uv6q
+    description: Token anarchiste de l’écosystème Anarcrypt
+
+governance:
+  dao_realm_url: https://realm.today/dao/chaotic-fractal-attracthor
+  snapshot_interval: 3600

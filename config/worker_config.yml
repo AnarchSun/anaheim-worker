@@ -1,41 +1,45 @@
-# ------------------------
-# Anaheim Worker Config
-# ------------------------
+# FILE: anarcrypt.sol/anaheim-worker/config/worker_config.yml
+# 🧠 Anaheim Worker Runtime Configuration
+# Tout ce qui touche aux tâches périodiques, au rythme et au comportement du daemon.
 
-# Chemins locaux (pour .venv) — override si exécuté dans Docker via volumes
-repo_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp
-gov_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/governance
-db_path: /home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/data/memory.sqlite
+version: 1.0
 
-# Branche worker
-worker_branch: Orion
+runtime:
+  interval_seconds: 30         # ⏱ Intervalle entre chaque exécution du main loop
+  retry_delay_seconds: 10      # ⏳ Délai en cas d’échec avant retry
+  max_retries: 5               # 🔁 Nombre max de tentatives avant skip
 
-# Seuils
-roots_error_threshold: 6
-orion_threshold_errors: 999
-repeat_threshold: 2
+solana:
+  cluster_url: ${SOLANA_CLUSTER_URL}
+  program_id: ${PROGRAM_ID}
+  commitment: confirmed
 
-# LLM
-llm:
-  type: gpt4all
-  cmd: gpt4all
+database:
+  path: /work/data/memory.sqlite
+  auto_backup: true
+  export_json: /work/data/fixes.json
 
-# GitHub (token via env)
-github:
-  token_env: GITHUB_TOKEN
+paths:
+  repo_path: /work/project
+  governance_path: /work/governance
+  patch_dir: /work/data/patches
+  logs: /work/logs
+  screenshots: /work/data/screenshots
+  playwright_cache: /work/data/playwright
 
-# Playwright tests
-playwright:
-  pages:
+logging:
+  level: INFO
+  colorize: true
+  save_to_file: true
+  log_file: /work/logs/worker.log
+
+devtools:
+  enable_playwright_checks: true
+  headless: true
+  urls:
     - http://localhost:3000/
-    - http://localhost:3000/state-mining
-  click_selectors:
-    - "button[data-test=initialize]"
-    - "button[data-test=submit]"
-
-# Docker volume mapping (si utilisé dans container)
-docker_volumes:
-  - ../config:/work/src/config
-  - ../project:/work/project
-  - ../governance:/work/governance
-  - ../data:/work/data
+    - http://localhost:3000/account
+  selectors:
+    - 'main'
+    - 'button'
+    - 'h1'

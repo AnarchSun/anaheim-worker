@@ -1,19 +1,21 @@
-# anarcrypt.sol/anaheim-worker/docker/Dockerfile.worker
+# FILE: anarcrypt.sol/anaheim-worker/docker/Dockerfile.worker
+# 🏴‍☠️ ANAHEIM-WORKER — CHAOTIC FRACTAL BUILDER / DEVNET MIRROR
+# Pas de hardcode. Pas d’État. Pas d’esclavage. Seulement la vérité du code.
+
 # ---- Stage 1: builder punk ----
 FROM python:3.11-slim-bullseye AS builder
 
-# ⚡ Installer les dépendances système pour builder les packages Python
+# ⚙️ System deps nécessaires pour build Playwright et outils Solana
 RUN apt-get update && apt-get install -y \
-    build-essential git curl wget unzip jq \
+    build-essential git curl wget unzip jq nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
-# 🌀 Workdir temporaire pour le build
 WORKDIR /tmp/build
 
-# Copier requirements.txt seul pour cacher les couches si pas de changement
+# ⚡ Copy only requirements to leverage Docker cache
 COPY src/requirements.txt .
 
-# Installer Python packages dans un virtualenv isolé
+# 🧠 Isolated virtualenv install
 RUN python -m venv /opt/venv \
     && /opt/venv/bin/pip install --upgrade pip \
     && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
@@ -21,38 +23,45 @@ RUN python -m venv /opt/venv \
 # ---- Stage 2: final punk image ----
 FROM python:3.11-slim-bullseye
 
-# Dépendances runtime + config git globale
-RUN apt-get update && apt-get install -y git curl wget unzip jq \
-    && git config --global user.name "Orion-Worker" \
-    && git config --global user.email "orion@local" \
+# 🧩 Runtime deps
+RUN apt-get update && apt-get install -y \
+    git curl wget unzip jq \
+    # 🧠 playwright deps minimal set
+    libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 \
+    libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2 libxshmfence1 \
     && rm -rf /var/lib/apt/lists/*
 
-# 🏴‍☠️ Workdir du chaos
+# 👤 Git identity (no master, only rebel)
+RUN git config --global user.name "Orion-Worker" \
+    && git config --global user.email "orion@local"
+
+# ⚔️ Workdir du chaos
 WORKDIR /work
 
-# Copier venv depuis builder
+# 🔥 Copy venv from builder
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Copier code projet + scripts + config fixe pour worker
+# 📦 Copy project code, config, and scripts
 COPY src /work/src
-COPY ../scripts /work/scripts
 COPY ../config /work/config
+COPY ../scripts /work/scripts
 
-# 🔑 Permissions punk
+# 🗝️ Permissions punk
 RUN chmod +x /work/scripts/start.sh
 
-# 🔮 Variables d'environnement
+# 🌌 ENV configuration — no hardcode, only mirrored truth
 ENV REPO_PATH=/work/project \
     GOV_PATH=/work/governance \
     DB_PATH=/work/data/memory.sqlite \
     PATCH_DIR=/work/data/patches \
     FIXES_JSON=/work/data/fixes.json \
     CFG_PATH=/work/config/worker_config.yml \
+    SOLANA_CONFIG_PATH=/work/config/solana.yml \
     LLM_CMD=gpt4all
 
-# 🌐 Port exposé pour debug / Playwright
+# 🌍 Network ports
 EXPOSE 9222
 
-# 🎤 Entrypoint punk
+# ☄️ Entrypoint — punkified launcher
 ENTRYPOINT ["/work/scripts/start.sh"]

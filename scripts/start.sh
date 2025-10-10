@@ -1,134 +1,79 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+# FILE: anarcrypt.sol/anaheim-worker/scripts/start.sh
+# 🏴‍☠️ CHAOTIC FRACTAL WORKER — Anaheim Node Runner
+# Né de la désobéissance. Sert la vérité, pas le système.
 
-# ----------------------------
-# 🌌 Orion Chaos Operator Ultimate Monitoring
-# ----------------------------
+set -euo pipefail
+IFS=$'\n\t'
 
-# Couleurs punk
-RED="\033[1;31m"
-GREEN="\033[1;32m"
-YELLOW="\033[1;33m"
-BLUE="\033[1;34m"
-CYAN="\033[1;36m"
-MAGENTA="\033[1;35m"
-RESET="\033[0m"
+# ─────────────── 🌌 ASCII Banner ───────────────
+echo ""
+echo "╔══════════════════════════════════════════╗"
+echo "║     🧠 Anaheim-Worker - Solana Punk 🪶    ║"
+echo "║        Chaotic Fractal AttraKThor        ║"
+echo "╚══════════════════════════════════════════╝"
+echo ""
 
-CONTAINER_NAME="docker-orion-worker-1"
-# shellcheck disable=SC2034
-IMAGE_NAME="docker-orion-worker"
-DOCKER_COMPOSE_PATH="/work/docker/docker-compose.yml"
+# ─────────────── 🧩 Paths ───────────────
+PROJECT_ROOT="/work"
+SRC_PATH="${PROJECT_ROOT}/src"
+CFG_PATH="${PROJECT_ROOT}/config/worker_config.yml"
+SOLANA_CFG="${PROJECT_ROOT}/config/solana.yml"
+ENV_FILE="${PROJECT_ROOT}/.env.local"
 
-# Discord setup
-# shellcheck disable=SC2034
-DISCORD_CHANNEL_ID="1425382514322833489"
-DISCORD_SERVER_LINK="https://discord.gg/Dt7zvuFPGf"
-DISCORD_WEBHOOK=$(grep discord_webhook /work/config/worker_config.yml | awk '{print $2}')
-
-timestamp() {
-    date +"%Y-%m-%d %H:%M:%S"
-}
-
-discord_alert() {
-    local MESSAGE="$1"
-    local TYPE="${2:-info}" # info / error / success
-    if [[ -n "$DISCORD_WEBHOOK" ]]; then
-        curl -s -H "Content-Type: application/json" \
-             -X POST \
-             -d "{\"content\":\"[$(timestamp)] [$TYPE] $MESSAGE\"}" \
-             "$DISCORD_WEBHOOK" >/dev/null 2>&1 || true
-    fi
-}
-
-echo -e "${CYAN}🦅 Orion Chaos Live Rebuild + AI Monitoring activé...${RESET}"
-
-# Vérifier config
-if [[ ! -f "${CFG_PATH}" ]]; then
-    echo -e "${RED}❌ Config introuvable: ${CFG_PATH}${RESET}"
-    discord_alert "❌ Config introuvable à ${CFG_PATH}" "error"
-    exit 1
+# ─────────────── 🔮 Environment ───────────────
+if [[ -f "${ENV_FILE}" ]]; then
+  echo "📜 Loading .env.local ..."
+  # shellcheck disable=SC2046
+  export $(grep -v '^#' "${ENV_FILE}" | xargs)
 else
-    echo -e "${GREEN}✅ Config trouvée: ${CFG_PATH}${RESET}"
+  echo "⚠️ No .env.local found — using defaults from config/solana.js"
 fi
 
-mkdir -p "$(dirname "${DB_PATH}")"
-mkdir -p "${PATCH_DIR}"
+# Default environment values if not provided
+export REPO_PATH="${REPO_PATH:-/work/project}"
+export GOV_PATH="${GOV_PATH:-/work/governance}"
+export DB_PATH="${DB_PATH:-/work/data/memory.sqlite}"
+export PATCH_DIR="${PATCH_DIR:-/work/data/patches}"
+export FIXES_JSON="${FIXES_JSON:-/work/data/fixes.json}"
+export CFG_PATH="${CFG_PATH:-/work/config/worker_config.yml}"
+export SOLANA_CLUSTER_URL="${SOLANA_CLUSTER_URL:-https://api.devnet.solana.com}"
 
-launch_worker() {
-    echo -e "${BLUE}🚀 Lancement du worker Orion via docker-compose...${RESET}"
-    docker-compose -f $DOCKER_COMPOSE_PATH up -d --build
-    discord_alert "🚀 Orion Worker lancé ou relancé avec succès sur $DISCORD_SERVER_LINK" "success"
-}
+# ─────────────── 🧰 Diagnostics ───────────────
+echo ""
+echo "🧩 CONFIG SUMMARY"
+echo "──────────────────────────────"
+echo "🔗 Solana RPC:      ${SOLANA_CLUSTER_URL}"
+echo "🧱 DB Path:         ${DB_PATH}"
+echo "⚙️  Worker Config:   ${CFG_PATH}"
+echo "📦 Repo Path:       ${REPO_PATH}"
+echo "💾 Fixes JSON:      ${FIXES_JSON}"
+echo "──────────────────────────────"
+echo ""
 
-live_watch() {
-    echo -e "${MAGENTA}🔍 Watch des fichiers src/ et config/...${RESET}"
-    if ! command -v inotifywait >/dev/null 2>&1; then
-        echo -e "${YELLOW}⚠️ inotifywait non trouvé, installer 'inotify-tools' pour live rebuild.${RESET}"
-        return
-    fi
+# ─────────────── 🧪 Devtools / Sanity ───────────────
+if ! command -v python &>/dev/null; then
+  echo "❌ Python not found in PATH!"
+  exit 1
+fi
 
-    while inotifywait -e modify,create,delete -r /work/src /work/config; do
-        echo -e "${YELLOW}⚡ Changement détecté ! Rebuild et relaunch...${RESET}"
-        discord_alert "⚡ Changement détecté dans src/ ou config/, rebuild en cours..." "info"
-        docker-compose -f $DOCKER_COMPOSE_PATH up -d --build
-        echo -e "${GREEN}✅ Rebuild et relaunch terminés.${RESET}"
-        discord_alert "✅ Rebuild et relaunch terminés." "success"
-    done
-}
+if [[ ! -f "${SRC_PATH}/worker_full.py" ]]; then
+  echo "❌ worker_full.py missing in ${SRC_PATH}"
+  exit 1
+fi
 
-# Watch en arrière-plan
-live_watch &
+# ─────────────── 🧠 Run Loop ───────────────
+cd "${SRC_PATH}"
 
-# Boucle chaos: keep worker alive
+echo "🚀 Launching Anaheim Worker..."
+echo ""
+
 while true; do
-    if ! docker ps | grep -q $CONTAINER_NAME; then
-        echo -e "${RED}💥 Container crashé ou absent ! Relance en cours...${RESET}"
-        discord_alert "💥 Container crashé ou absent ! Relance en cours..." "error"
-        launch_worker
-        sleep 5
-    else
-        echo -e "${GREEN}🟢 Container vivant et en ligne.${RESET}"
-        sleep 10
-    fi
-done
-# ... avant reste pareil ...
-
-# Fonction GitHub issue intelligente
-create_github_issue_if_critical() {
-    local TITLE="$1"
-    local BODY="$2"
-    local SEVERITY="$3"  # critical / needs-fix
-
-    # Ne poster que si token dispo
-    if [[ -n "$GITHUB_TOKEN" ]]; then
-        # Exclusion: vérifier si issue similaire existe déjà
-        EXISTING=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/$GITHUB_REPO_OWNER/$GITHUB_REPO_NAME/issues?state=open" \
-            | grep -F "$TITLE" || true)
-
-        if [[ -z "$EXISTING" ]]; then
-            curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                 -H "Accept: application/vnd.github+json" \
-                 "https://api.github.com/repos/$GITHUB_REPO_OWNER/$GITHUB_REPO_NAME/issues" \
-                 -d "{\"title\":\"$TITLE\",\"body\":\"$BODY\",\"labels\":[\"$SEVERITY\"]}" >/dev/null 2>&1 || true
-        fi
-    fi
-}
-
-# Boucle chaos: keep worker alive
-while true; do
-    if ! docker ps | grep -q $CONTAINER_NAME; then
-        echo -e "${RED}💥 Container crashé ou absent ! Relance en cours...${RESET}"
-        discord_alert "💥 Container crashé ou absent ! Relance en cours..." "error"
-
-        # GitHub only si crash bloquant
-        create_github_issue_if_critical "Crash Orion Worker" "Le container $CONTAINER_NAME est mort à $(timestamp)." "critical"
-
-        launch_worker
-        sleep 5
-    else
-        echo -e "${GREEN}🟢 Container vivant et en ligne.${RESET}"
-        sleep 10
-    fi
+  echo "[🌀] Running worker_full.py ..."
+  python ./worker_full.py || {
+    echo "💥 Worker crashed — waiting 10s before retry..."
+    sleep 10
+  }
+  echo "[⏱️] Sleeping 5s before next cycle..."
+  sleep 5
 done
