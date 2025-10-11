@@ -1,54 +1,40 @@
-# PATH: utils/git_utils.py
-from os import path as os_path
-import git
-from git import Repo
+# PATH: utils/git_utils.py (updated flush_to_flood)
 
+from git import Repo, GitCommandError
 
-def open_repo(repo_path: str) -> Repo:
+def flush_to_flood(repo: Repo, branch_name: str):
     """
-    Open a Git repository at the given path.
+    Merge branch_name into FLOOD_BRANCH intelligently.
+    Keeps only the last 250 commits in FLOOD_BRANCH.
     """
-    if not os_path.exists(repo_path):
-        raise FileNotFoundError(f"Path does not exist: {repo_path}")
-    return git.Repo(repo_path)
+    FLOOD_BRANCH = "<flood>"
 
-
-def create_branch_if_missing(repo: Repo, name: str) -> str:
-    """
-    Create a branch if it doesn't exist, otherwise return existing branch name.
-    """
     try:
-        repo.git.rev_parse("--verify", name)
-        return name
-    except git.GitCommandError:
-        repo.git.branch(name)
-        return name
+        # Create flood branch if missing
+        if FLOOD_BRANCH not in repo.branches:
+            repo.git.branch(FLOOD_BRANCH)
+        repo.git.checkout(FLOOD_BRANCH)
 
+        # Merge safely with no-fast-forward
+        try:
+            repo.git.merge(branch_name, "--no-ff", "--strategy-option=theirs")
+            log(f"🌊 Merged {branch_name} into {FLOOD_BRANCH}")
+        except GitCommandError as merge_err:
+            log(f"⚠️ Merge conflict during flush_to_flood: {merge_err}")
+            # Abort merge to keep flood branch safe
+            repo.git.merge("--abort")
+            return
 
-def commit_all(repo: Repo, message: str) -> bool:
-    """
-    Add all changes and commit with the provided message.
-    Returns True if commit succeeds, False otherwise.
-    """
-    try:
-        repo.git.add(A=True)
-        repo.index.commit(message)
-        return True
-    except git.GitCommandError:
-        return False
+        # Trim to last 250 commits
+        commits = list(repo.iter_commits(FLOOD_BRANCH))
+        if len(commits) > 250:
+            oldest_hash = commits[249].hexsha
+            repo.git.reset("--hard", oldest_hash)
+            log(f"♻️ FLOOD branch trimmed to 250 commits")
 
+        # Push safely
+        repo.git.push("--set-upstream", "origin", FLOOD_BRANCH)
+        log(f"🚀 FLOOD branch updated with {branch_name}")
 
-def push_branch(repo: Repo, branch: str, remote: str = 'origin') -> bool:
-    """
-    Push the specified branch to remote.
-    Returns True if push succeeds, False otherwise.
-    """
-    try:
-        repo.git.push('--set-upstream', remote, branch)
-        return True
-    except git.GitCommandError:
-        return False
-
-
-def repo_open():
-    return None
+    except Exception as e:
+        log(f"💥 flush_to_flood failed: {repr(e)}")

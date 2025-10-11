@@ -1,4 +1,5 @@
-import os, requests
+import os
+import requests
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN","")
 HEADERS = {"Authorization": f"token {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}
 

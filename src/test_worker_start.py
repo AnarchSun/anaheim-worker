@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 
-from worker_full import CFG_PATH, REPO, GOV_PATH, DB_PATH, BRANCH, ensure_branch_exists, init_db
+from workers.legacy.worker_full import CFG_PATH, REPO, GOV_PATH, DB_PATH, BRANCH, ensure_branch_exists, init_db
 
 print("🛠️ Test Worker Start")
 

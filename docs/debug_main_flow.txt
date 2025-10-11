@@ -1,0 +1,101 @@
+🛠️ debug_main(dry_run=True)
+│
+├─ 🛠️ Log: DEBUG iteration started
+│
+├─ 📦 repo = repo_open()
+│   ├─ ❌ Repo not available → abort
+│   └─ ✅ Repo available → continue
+│
+├─ 📝 ts_error_stub = {file:'<unknown>', type:'create_function', symbol:'DebugStub'}
+│
+├─ ⚡ apply_ts_actions([ts_error_stub])
+│   └─ (patchée → tracker.calls.append)
+│
+├─ ✅ Log: Stub TS action applied
+│
+├─ 🔧 for err in ts_errors:
+│       handle_ts_error(err)
+│       (patchée → prints "[worker-safe] TS error handled")
+│
+├─ 💡 if dry_run:
+│       devtools_check_stub()
+│       (patchée → prints stub call)
+│
+├─ 🌿 for branch in ['Orion','Orion-Exploration']:
+│       applied_actions, last_commit_times[...] = auto_ts_fix_cycle_safe(repo, last_commit_time)
+│       (patchée → tracker.calls.append)
+│       if applied_actions → log('🛠 branch applied X actions')
+│
+└─ 🛑 Log: DEBUG iteration finished
+
+
+┌─────────────────────────────────────────────┐
+│          debug_main(dry_run=True)           │
+└─────────────────────────────────────────────┘
+                  │
+                  ▼
+      ┌─────────────────────────┐
+      │ log("🛠️ Anaheim Worker    │
+      │ DEBUG iteration started")│
+      └─────────────────────────┘
+                  │
+                  ▼
+      ┌─────────────────────────┐
+      │ repo = repo_open()      │
+      │ (patchée → tracker.calls│
+      │ append("repo_open"))    │
+      └─────────────────────────┘
+                  │
+         ┌────────┴─────────┐
+         ▼                  ▼
+┌─────────────────┐   ┌─────────────────────┐
+│ repo is None?   │   │ repo is available   │
+│ log + return    │   │ continue flow       │
+└─────────────────┘   └─────────────────────┘
+                          │
+                          ▼
+              ┌─────────────────────────┐
+              │ ts_error_stub = {…}    │
+              └─────────────────────────┘
+                          │
+                          ▼
+      ┌───────────────────────────────┐
+      │ apply_ts_actions([ts_error_stub]) │
+      │ (patchée → tracker.calls.append) │
+      └───────────────────────────────┘
+                          │
+                          ▼
+             ┌─────────────────────────┐
+             │ log("✅ Stub TS action   │
+             │ applied")               │
+             └─────────────────────────┘
+                          │
+                          ▼
+      ┌─────────────────────────────────┐
+      │ for err in ts_errors:           │
+      │ handle_ts_error(err)            │
+      │ (patchée → prints "[worker-safe]│
+      │ TS error handled")              │
+      └─────────────────────────────────┘
+                          │
+                          ▼
+      ┌───────────────────────────────┐
+      │ if dry_run: devtools_check_stub│
+      │ (patchée → prints stub call)  │
+      └───────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────┐
+│ for branch in ["Orion","Orion-Exploration"]: │
+│   applied_actions, last_commit_times[...] = │
+│   auto_ts_fix_cycle_safe(repo, last_commit) │
+│   (patchée → tracker.calls.append)          │
+│   if applied_actions: log("🛠 branch applied X actions") │
+└─────────────────────────────────────────────┘
+                          │
+                          ▼
+      ┌─────────────────────────────┐
+      │ log("🛑 DEBUG iteration      │
+      │ finished")                 │
+      └─────────────────────────────┘
+

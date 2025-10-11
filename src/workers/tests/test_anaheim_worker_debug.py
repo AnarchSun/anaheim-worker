@@ -1,60 +1,39 @@
-#!/usr/bin/env python3
-"""
-Test suite for Anaheim Worker Debug runner.
-Ensures the debug pipeline runs end-to-end without exceptions or circular imports.
-"""
-
-import io
-import sys
-import types
+# PATH: src/workers/tests/test_anarcrypt_worker_debug.py
 import pytest
+from workers.modules.anarcrypt_worker_debug import debug_main, tracker
 
-# ----------------------------------------------------------------------------------
-# 🔧 Mock missing dependencies (like hyper_optimal_worker) before importing the worker
-# ----------------------------------------------------------------------------------
-fake_mod = types.ModuleType("hyper_optimal_worker")
+# ---------- Fixtures ----------
+@pytest.fixture(autouse=True)
+def reset_tracker():
+    tracker.calls.clear()
+    yield
+    tracker.calls.clear()
 
-def fake_repo_open():
-    print("[mock] repo_open() called")
-    return {"repo": "mock"}
+# ---------- Tests ----------
+def test_debug_main_runs_clean(capsys):
+    """Vérifie que le debug_main s'exécute sans erreurs et logs fin de debug."""
+    debug_main(dry_run=True)
+    captured = capsys.readouterr()
+    output = captured.out
 
-def fake_log(msg):
-    print(f"[mock-log] {msg}")
-
-def fake_auto_ts_fix_cycle_safe(repo, last_commit_time):
-    print(f"[mock] auto_ts_fix_cycle_safe({repo}, {last_commit_time})")
-    # Simulate return (actions, new_last_commit_time)
-    return [{"mock_action": True}], last_commit_time + 1
-
-fake_mod.repo_open = fake_repo_open
-fake_mod.apply_ts_actions = lambda actions: print(f"[mock] apply_ts_actions({actions})")
-fake_mod.log = fake_log
-fake_mod.auto_ts_fix_cycle_safe = fake_auto_ts_fix_cycle_safe
-
-sys.modules["hyper_optimal_worker"] = fake_mod  # ✅ register mock module
-
-# Now safe to import the debug worker
-from workers.modules.anarcrypt_worker_debug import debug_main
-
-
-def test_debug_main_runs_clean(monkeypatch, capsys):
-    """Dry-run Anaheim Worker Debug — ensures clean execution (exit code 0)."""
-
-    # Capture log output
-    log_output = io.StringIO()
-    monkeypatch.setattr(sys, "stdout", log_output)
-
-    # Run safely
-    try:
-        debug_main(dry_run=True)
-    except Exception as e:
-        pytest.fail(f"Debug main raised unexpected error: {e!r}")
-
-    output = log_output.getvalue()
     assert "🛠️ Anaheim Worker DEBUG iteration started" in output
     assert "🛑 DEBUG iteration finished" in output
-    assert "✅ Stub TS action applied" in output
 
-    print("\n--- Debug Output ---")
-    print(output)
-    print("--------------------")
+def test_debug_main_full_sequence():
+    """Vérifie que toutes les étapes du debug_main sont appelées."""
+    debug_main(dry_run=True)
+
+    # 1️⃣ repo_open appelé
+    assert "repo_open" in tracker.calls
+
+    # 2️⃣ apply_ts_actions appelé
+    assert any(c[0] == "apply_ts_actions" for c in tracker.calls)
+
+    # 3️⃣ handle_ts_error appelé
+    assert any(c[0] == "handle_ts_error" for c in tracker.calls)
+
+    # 4️⃣ auto_ts_fix_cycle_safe appelé pour chaque branche
+    assert any(c[0] == "auto_ts_fix_cycle_safe" for c in tracker.calls)
+
+    # 5️⃣ DEBUG iteration finished log
+    assert any(c[0] == "log" and "DEBUG iteration finished" in c[1] for c in tracker.calls)

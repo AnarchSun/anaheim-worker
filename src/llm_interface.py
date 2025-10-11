@@ -1,13 +1,6 @@
-import os
-import subprocess
+# llm_interface.py
+from anaheim_worker import log  # pour logging
 
-LLM_CMD = os.getenv("LLM_CMD","gpt4all")
-
-def ask_llm(prompt, timeout=60):
-    # Simple call for local gpt4all CLI; adapt if you have another client
-    try:
-        cmd = [LLM_CMD, "--prompt", prompt]
-        p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
-        return p.stdout.strip()
-    except Exception as e:
-        return f"LLM_ERROR: {e}"
+def ask_llm(prompt: str) -> str:
+    log(f"🤖 ask_llm called with prompt: {prompt[:100]}...")
+    return "[]"

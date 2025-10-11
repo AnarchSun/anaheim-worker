@@ -1,46 +1,57 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Patch automatique : remplace tous les datetime.utcnow() dépréciés
-par datetime.now(timezone.utc), compatible Python 3.12+
+Patch file utility to replace deprecated datetime.now(timezone.utc)
+with timezone-aware datetime.now(timezone.utc).
 """
 
-import os
 import re
+import traceback
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]  # remonte au dossier principal
-TARGET_EXTENSIONS = (".py",)
-RE_PATTERN = re.compile(r"\bdatetime\.utcnow\s*\(\s*\)")
+__version__ = "1.0.0"
 
-def patch_file(path: Path):
-    text = path.read_text(encoding="utf-8")
-    if "datetime.utcnow" not in text:
+def msg():
+    """Returns a short identifier for logs."""
+    return "fix_utc_deprecated"
+
+
+def patch_file(file_path: Path) -> bool:
+    """
+    Scan a Python file and replace all occurrences of datetime.now(timezone.utc)
+    with datetime.now(timezone.utc), respecting formatting.
+    """
+    try:
+        if not file_path.exists() or not file_path.suffix == ".py":
+            return False
+
+        text = file_path.read_text(encoding="utf-8")
+        new_text, count = re.subn(
+            r"datetime\.utcnow\s*\(\s*\)",
+            "datetime.now(timezone.utc)",
+            text,
+        )
+
+        if count > 0:
+            file_path.write_text(new_text, encoding="utf-8")
+            print(f"🩹 Patched {count} utcnow() in {file_path}")
+            return True
+
         return False
 
-    # assure que timezone est importé
-    if "from datetime import timezone" not in text:
-        if "from datetime import datetime" in text:
-            text = text.replace("from datetime import datetime", "from datetime import datetime, timezone")
-        else:
-            text = "from datetime import timezone\n" + text
+    except Exception as e:
+        print(f"⚠️ Error patching {file_path}: {repr(e)}\n{traceback.format_exc()}")
+        return False
 
-    patched = RE_PATTERN.sub("datetime.now(timezone.utc)", text)
-    if patched != text:
-        path.write_text(patched, encoding="utf-8")
-        print(f"✅ Patched {path}")
-        return True
-    return False
 
-def main():
-    count = 0
-    for root, _, files in os.walk(PROJECT_ROOT):
-        for file in files:
-            if file.endswith(TARGET_EXTENSIONS):
-                fpath = Path(root) / file
-                if patch_file(fpath):
-                    count += 1
-    print(f"\n✨ Total fichiers corrigés : {count}")
+def fix_utc_deprecated():
+    """CLI-like entry to patch all Python files in the repo root."""
+    repo_root = Path(__file__).resolve().parents[1]
+    patched_files = 0
+    for py_file in repo_root.rglob("*.py"):
+        if patch_file(py_file):
+            patched_files += 1
+    print(f"✅ Finished patching {patched_files} files.")
+    return patched_files
+
 
 if __name__ == "__main__":
-    main()
+    fix_utc_deprecated()

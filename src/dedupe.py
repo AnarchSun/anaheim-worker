@@ -1,4 +1,5 @@
-import hashlib, re
+import hashlib
+import re
 
 def hash_error(obj):
     return hashlib.sha256(obj.encode('utf-8')).hexdigest()

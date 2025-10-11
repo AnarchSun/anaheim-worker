@@ -4,19 +4,24 @@ import sys
 import threading
 from typing import Optional
 
-from .anaheim_worker_safe import main_worker_safe
-from .worker_dryrun import dryrun_main
-from .worker_fastloop import fastloop_main
-from ..common import log
+from .modules.anaheim_worker_safe import main_worker_safe_hyper as main_worker_safe
+from .modules.hyper_optimal_worker import log
+from .modules.worker_dryrun import debug_main
+from .modules.worker_fastloop import fastloop_main
+
 
 # -----------------------
 # Worker mode selector
 # -----------------------
 MODES = {
     "safe": main_worker_safe,
-    "dryrun": dryrun_main,
+    "dryrun": debug_main,
     "fastloop": fastloop_main
 }
+def log_thread(msg: str):
+    print(msg)
+
+__all__ = ["log_thread"]
 
 def launch_worker(worker_func, name: Optional[str] = None):
     t = threading.Thread(target=worker_func, name=name or worker_func.__name__)

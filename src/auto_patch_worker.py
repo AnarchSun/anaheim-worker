@@ -211,7 +211,7 @@ def main():
 
     if branch in [ORION, ORION_EXPLORATION]:
         if (errors > MAX_ERRORS or warnings > MAX_WARNINGS) and not FORCE_PATCH:
-            print(f"❌ Trop d'erreurs ou warnings, patch stoppé. Fix manuellement.")
+            print("❌ Trop d'erreurs ou warnings, patch stoppé. Fix manuellement.")
             return
         if actions:
             print(f"🔎 {len(actions)} action(s) détectée(s), application automatique...")

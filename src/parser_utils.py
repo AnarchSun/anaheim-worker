@@ -1,4 +1,5 @@
-import re, json
+import re
+import json
 
 def parse_tsc(output):
     pattern = re.compile(r'^(.*\\.ts[x]?):(\\d+):(\\d+) - (error|warning) (TS\\d+): (.*)$', re.M)
