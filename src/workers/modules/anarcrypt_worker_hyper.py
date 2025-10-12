@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import argparse
-import queue
+import subprocess
 import threading
 import time
 import pickle
@@ -27,29 +27,51 @@ def load_queue_state():
             llm_queue.put(t)
         log(f"💾 Loaded {len(tasks)} tasks from saved queue.")
 
-def hyper_worker_main(num_threads: int = 4, dry_run: bool = True):
+def read_todo_instructions(folder_path: Path):
+    """Lit le TODO.md d’un dossier et retourne les lignes"""
+    todo_file = folder_path / "TODO.md"
+    if todo_file.exists():
+        with todo_file.open("r", encoding="utf-8") as f:
+            return f.read().splitlines()
+    return []
+
+def build_and_run_dapp(dapp_path_local: Path, use_pnpm: bool = False):
+    """Build et run le dapp, retourne le process et le port utilisé"""
+    build_cmd = ["pnpm", "build"] if use_pnpm else ["yarn", "build"]
+    subprocess.run(build_cmd, cwd=dapp_path_local, check=True)
+    dev_cmd = ["pnpm", "dev"] if use_pnpm else ["yarn", "dev"]
+    dev_process = subprocess.Popen(dev_cmd, cwd=dapp_path_local)
+    port = 3000  # Par défaut Next.js dev
+    return dev_process, port
+
+def hyper_worker_main(dapp_path_local: Path, num_threads_local: int = 4, dry_run_local: bool = True):
     """Hyper Safe Worker complet avec threads, queue, hot reload et sauvegarde"""
-    log(f"🚀 Hyper Safe Worker started | threads={num_threads} | dry_run={dry_run}")
+    log(f"🚀 Hyper Safe Worker started | threads={num_threads_local} | dry_run={dry_run_local}")
 
     # Hot reload + DB
     start_hot_reload()
     init_db()
 
-    # Restaurer la queue si elle existe
+    # Restaurer queue
     load_queue_state()
 
-    # Lancer les threads
-    task_queue = llm_queue  # On utilise la queue globale
+    # Charger les TODO.md pour créer des tâches
+    todo_tasks = read_todo_instructions(dapp_path_local)
+    for task in todo_tasks:
+        llm_queue.put({"type": "todo", "payload": task})
+        log(f"🔹 TODO queued: {task}")
+
+    # Lancer threads
     threads = []
-    for i in range(num_threads):
-        t = threading.Thread(target=worker_thread_cycle, args=(i+1, task_queue), daemon=True)
+    for i in range(num_threads_local):
+        t = threading.Thread(target=worker_thread_cycle, args=(i+1, llm_queue, dry_run_local), daemon=True)
         threads.append(t)
         t.start()
 
     # Tâches initiales si queue vide
-    if task_queue.empty():
+    if llm_queue.empty():
         for n in range(5):
-            task_queue.put({"type": "init", "payload": f"task_{n}"})
+            llm_queue.put({"type": "init", "payload": f"task_{n}"})
 
     try:
         while not shutdown_event.is_set():
@@ -59,10 +81,7 @@ def hyper_worker_main(num_threads: int = 4, dry_run: bool = True):
         log("⚡ Ctrl+C received, shutting down...")
         handle_shutdown()
     finally:
-        # Sauvegarder la queue avant de fermer
         save_queue_state()
-
-        # Attendre la fin des threads
         for t in threads:
             t.join(timeout=2)
         log("✅ Hyper Safe Worker terminated cleanly.")
@@ -72,12 +91,20 @@ if __name__ == "__main__":
     parser.add_argument("--run", action="store_true", help="Run in active mode")
     parser.add_argument("--dry-run", action="store_true", help="Run in dry mode")
     parser.add_argument("--threads", type=int, default=4, help="Number of worker threads")
+    parser.add_argument("--dapp", type=str, required=True, help="Path to the dapp folder")
+    parser.add_argument("--use-pnpm", action="store_true", help="Use pnpm instead of yarn for build/dev")
     args = parser.parse_args()
 
-    dry_run = not args.run or args.dry_run
-    if dry_run:
+    dapp_path_arg = Path(args.dapp).resolve()
+    dry_run_flag_arg = not args.run or args.dry_run
+
+    if dry_run_flag_arg:
         log("💡 Running Hyper Worker in dry-run mode…")
     else:
         log("🚀 Running Hyper Worker ACTIVE…")
 
-    hyper_worker_main(num_threads=args.threads, dry_run=dry_run)
+    hyper_worker_main(
+        dapp_path_local=dapp_path_arg,
+        num_threads_local=args.threads,
+        dry_run_local=dry_run_flag_arg
+    )
