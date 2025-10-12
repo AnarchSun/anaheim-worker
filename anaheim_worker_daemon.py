@@ -1,122 +1,158 @@
-# anaheim_worker_daemon.py
-import threading
-import time
-from typing import List, Dict
+#!/bin/bash
+# ~/bin/anarcrypt-worker-daemon
+# Anarcrypt Hyper Worker Daemon PRO with Auto-Update Watchdog
 
-from worker_full import (
-    repo_open,
-    auto_ts_fix_cycle,
-    shutdown_event,
-    log,
-    flush_to_flood,
-    worker_thread_cycle,
-    copilot_retrier,
-    safe_commit
-)
-from queue import Queue
+export PYTHONPATH="$HOME/RustroverProjects/anarcrypt.sol/anaheim-worker/src"
 
-# Global queue pour LLM/TS patches
-llm_queue: Queue = Queue()
+WORKER_MODULE="workers.modules.anarcrypt_worker_hyper"
+LOG_DIR="$HOME/RustroverProjects/anarcrypt.sol/anaheim-worker/worker_logs"
+PID_DIR="$HOME/RustroverProjects/anarcrypt.sol/anaheim-worker/worker_pids"
+SRC_DIR="$HOME/RustroverProjects/anarcrypt.sol/anaheim-worker/src"
+mkdir -p "$LOG_DIR" "$PID_DIR"
 
-def main_daemon(num_orion_threads: int = 3, num_explore_threads: int = 2):
-    """
-    Main daemon orchestration:
-    - Launch Orion branch workers
-    - Launch Orion-Exploration workers
-    - Manage flush to <flood>
-    """
-    repo_obj = repo_open()
-    if not repo_obj:
-        log("❌ Repo unavailable. Exiting main_daemon.")
-        return
+NUM_THREADS=4
+NUM_WORKERS=1
+WORKER_OPTS=()
+WATCH_INTERVAL=2
 
-    # --- Orion workers ---
-    orion_threads = [
-        threading.Thread(target=worker_thread_cycle, args=(llm_queue,), name=f"orion-worker-{i+1}", daemon=True)
-        for i in range(num_orion_threads)
-    ]
-    for t in orion_threads:
-        t.start()
-        log(f"🧵 Started {t.name} for Orion branch")
+# -----------------------
+# Parse CLI options
+# -----------------------
+while [[ $# -gt 0 ]]; do
+case "$1" in
+--threads)
+NUM_THREADS="$2"
+shift 2
+;;
+--workers)
+NUM_WORKERS="$2"
+shift 2
+;;
+--no-dry-run)
+WORKER_OPTS+=("--run")  # translates to Python argument
+shift \
+;;
+*)
+break
+;;
+esac
+done
 
-    orion_retrier = threading.Thread(target=copilot_retrier, name="orion-copilot-retrier", daemon=True)
-    orion_retrier.start()
-    log("🛰️ Orion Copilot retrier daemon started.")
+# -----------------------
+# Worker functions
+# -----------------------
+start_worker() {
+    local idx="$1"
+local pid_file="$PID_DIR/worker_${idx}.pid"
+local log_file="$LOG_DIR/worker_${idx}.log"
 
-    # --- Orion-Exploration worker ---
-    exploration_thread = threading.Thread(
-        target=exploration_worker_loop,
-        name="orion-exploration-worker",
-        daemon=True
-    )
-    exploration_thread.start()
-    log("🚀 Orion-Exploration worker started.")
+if [ -f "$pid_file" ] && kill -0 $(cat "$pid_file") 2>/dev/null; then
+echo "⚠️ Worker #$idx already running (PID $(cat "$pid_file"))"
+return
+fi
 
-    # --- Main loop: periodically flush to <flood> if necessary ---
-    try:
-        while not shutdown_event.is_set():
-            # Flush orphan patches or errors periodically
-            flush_to_flood()
-            time.sleep(120)  # every 2 minutes
-    except KeyboardInterrupt:
-        shutdown_event.set()
-    finally:
-        shutdown_event.set()
-        for t in orion_threads:
-            t.join(timeout=2)
-        orion_retrier.join(timeout=2)
-        exploration_thread.join(timeout=2)
-        log("✅ main_daemon stopped cleanly.")
+echo "🚀 Starting Worker #$idx..."
+nohup bash -c "
+while true; do
+python3 -u -m $WORKER_MODULE --threads $NUM_THREADS ${WORKER_OPTS[@]} >> '$log_file' 2>&1
+echo '⚠️ Worker #$idx crashed at \$(date), restarting...' >> '$log_file'
+sleep 2
+done
+" &
+echo $! > "$pid_file"
+echo "✅ Worker #$idx watchdog started with PID $(cat "$pid_file")"
+}
 
+stop_worker() {
+local idx
+for idx in $(seq 1 $NUM_WORKERS); do
+local pid_file="$PID_DIR/worker_${idx}.pid"
+if [ -f "$pid_file" ] && kill -0 $(cat "$pid_file") 2>/dev/null; then
+echo "🛑 Stopping Worker #$idx (watchdog PID $(cat "$pid_file"))..."
+kill $(cat "$pid_file")
+rm -f "$pid_file"
+echo "✅ Worker #$idx stopped."
+else
+echo "⚠️ Worker #$idx not running"
+fi
+done
+}
 
-# --- Exploration worker loop ---
-def exploration_worker_loop():
-    """
-    Worker for Orion-Exploration branch.
-    Handles batch commits + flush to <flood> for innovation.
-    """
-    repo_obj = repo_open()
-    if not repo_obj:
-        log("❌ Repo unavailable for exploration_worker_loop.")
-        return
+status_worker() {
+local idx
+for idx in $(seq 1 $NUM_WORKERS); do
+local pid_file="$PID_DIR/worker_${idx}.pid"
+if [ -f "$pid_file" ] && kill -0 $(cat "$pid_file") 2>/dev/null; then
+echo "✅ Worker #$idx running (watchdog PID $(cat "$pid_file"))"
+else
+echo "❌ Worker #$idx not running"
+fi
+done
+}
 
-    # Worker threads for LLM queue
-    threads = [
-        threading.Thread(target=worker_thread_cycle, args=(llm_queue,), name=f"explore-worker-{i+1}", daemon=True)
-        for i in range(2)
-    ]
-    for t in threads:
-        t.start()
-        log(f"🧵 Started {t.name} for exploration branch")
+update_workers() {
+echo "♻️ Updating all workers..."
+stop_worker
+sleep 1
+for i in $(seq 1 $NUM_WORKERS); do
+start_worker "$i"
+done
+echo "✅ Update complete, workers restarted."
+}
 
-    retrier = threading.Thread(target=copilot_retrier, name="exploration-copilot-retrier", daemon=True)
-    retrier.start()
-    log("🛰️ Exploration Copilot retrier daemon started.")
+# -----------------------
+# Auto-update via file watcher
+# -----------------------
+watch_src_and_update() {
+echo "👁 Watching $SRC_DIR for changes…"
+local last_hash
+last_hash=$(find "$SRC_DIR" -type f -name '*.py' -exec md5sum {} \; | md5sum | awk '{print $1}')
 
-    last_commit_time: float = 0.0
-    min_commit_interval: int = 300  # 5 min cooldown
+while true; do
+sleep "$WATCH_INTERVAL"
+local current_hash
+current_hash=$(find "$SRC_DIR" -type f -name '*.py' -exec md5sum {} \; | md5sum | awk '{print $1}')
+if [ "$current_hash" != "$last_hash" ]; then
+echo "♻️ Detected Python source change, updating workers..."
+update_workers
+last_hash="$current_hash"
+fi
+done
+}
 
-    try:
-        while not shutdown_event.is_set():
-            applied_actions, last_commit_time = auto_ts_fix_cycle(
-                repo_obj=repo_obj,
-                last_commit_time=last_commit_time,
-                min_commit_interval=min_commit_interval
-            )
-
-            if applied_actions:
-                log(f"🛠 Exploration auto_ts_fix_cycle applied {len(applied_actions)} actions.")
-                safe_commit(repo_obj, branch_name="Orion-Exploration", actions=applied_actions)
-                flush_to_flood(applied_actions)
-
-            time.sleep(90)
-    finally:
-        shutdown_event.set()
-        for t in threads:
-            t.join(timeout=2)
-        retrier.join(timeout=2)
-        log("✅ exploration_worker_loop stopped cleanly.")
-
-
-if __name__ == "__main__":
-    main_daemon()
+# -----------------------
+# CLI
+# -----------------------
+case "$1" in
+     start)
+shift
+for i in $(seq 1 $NUM_WORKERS); do
+start_worker "$i"
+done
+echo "💡 Starting auto-update watcher..."
+watch_src_and_update &
+;;
+stop)
+stop_worker
+;;
+restart)
+stop_worker
+sleep 1
+shift
+for i in $(seq 1 $NUM_WORKERS); do
+start_worker "$i"
+done
+echo "💡 Restarted auto-update watcher..."
+watch_src_and_update &
+;;
+status)
+status_worker
+;;
+update)
+update_workers
+;;
+*)
+echo "Usage: $0 {start|stop|restart|status|update} [--threads N] [--workers M] [--no-dry-run]"
+exit 1
+;;
+esac

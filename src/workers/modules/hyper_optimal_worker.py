@@ -273,3 +273,15 @@ def main_worker_safe_hyper(num_threads: int = 4):
         t.start()
     retrier_thread = threading.Thread(target=copilot_retrier, daemon=True)
     retrier_thread.start()
+
+
+def start_hot_reload():
+    return None
+
+
+def handle_ts_error():
+    return None
+
+
+def ask_llm():
+    return None
