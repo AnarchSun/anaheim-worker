@@ -1,0 +1,88 @@
+    Checking anaheim v0.1.0 (/home/anarchsun/RustroverProjects/anarcrypt.sol/anaheim-worker/anaheim-putsch-self-governance-solana-dapp/anchor/programs/anaheim)
+error[E0432]: unresolved import `crate::state::UserAccount`
+ --> programs/anaheim/src/contexts/create_user.rs:3:5
+  |
+3 | use crate::state::UserAccount;
+  |     ^^^^^^^^^^^^^^-----------
+  |                   |
+  |                   no `UserAccount` in `state`
+
+error[E0432]: unresolved imports `crate::state::PostAccount`, `crate::state::UserAccount`
+ --> programs/anaheim/src/contexts/create_post.rs:3:20
+  |
+3 | use crate::state::{PostAccount, UserAccount};
+  |                    ^^^^^^^^^^^  ^^^^^^^^^^^ no `UserAccount` in `state`
+  |                    |
+  |                    no `PostAccount` in `state`
+  |
+  = note: unresolved item `crate::contexts::__cpi_client_accounts_create_user::UserAccount` exists but is inaccessible
+
+error[E0432]: unresolved import `crate::state::PostAccount`
+ --> programs/anaheim/src/contexts/update.rs:3:20
+  |
+3 | use crate::state::{PostAccount, AnaheimAccount};
+  |                    ^^^^^^^^^^^ no `PostAccount` in `state`
+  |
+  = note: unresolved item `crate::contexts::__cpi_client_accounts_create_post::PostAccount` exists but is inaccessible
+
+error[E0432]: unresolved import `crate`
+  --> programs/anaheim/src/lib.rs:26:1
+   |
+26 | #[program]
+   | ^^^^^^^^^^ unresolved import
+   |
+   = note: this error originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: a similar path exists
+   |
+26 - #[program]
+26 + contexts::__client_accounts_create_user
+   |
+
+warning: ambiguous glob re-exports
+  --> programs/anaheim/src/contexts/mod.rs:8:9
+   |
+ 8 | pub use create_post::*;
+   |         ^^^^^^^^^^^^^^ the name `CreatePost` in the type namespace is first re-exported here
+...
+11 | pub use post::*;
+   |         ------- but the name `CreatePost` in the type namespace is also re-exported here
+   |
+   = note: `#[warn(ambiguous_glob_reexports)]` on by default
+
+warning: ambiguous glob re-exports
+  --> programs/anaheim/src/contexts/mod.rs:8:9
+   |
+ 8 | pub use create_post::*;
+   |         ^^^^^^^^^^^^^^ the name `CreatePostBumps` in the type namespace is first re-exported here
+...
+11 | pub use post::*;
+   |         ------- but the name `CreatePostBumps` in the type namespace is also re-exported here
+
+warning: unused import: `post::*`
+  --> programs/anaheim/src/contexts/mod.rs:11:9
+   |
+11 | pub use post::*;
+   |         ^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: function cannot return without recursing
+  --> programs/anaheim/src/lib.rs:34:3
+   |
+34 | /   pub fn create_user(
+35 | |     ctx: Context<CreateUser>,
+36 | |     username: String,
+37 | |   ) -> Result<()> {
+   | |_________________^ cannot return without recursing
+38 |       create_user(ctx, username)
+   |       -------------------------- recursive call site
+   |
+   = help: a `loop` may express intention better if this is on purpose
+   = note: `#[warn(unconditional_recursion)]` on by default
+
+For more information about this error, try `rustc --explain E0432`.
+warning: `anaheim` (lib) generated 4 warnings
+error: could not compile `anaheim` (lib) due to 4 previous errors; 4 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+warning: `anaheim` (lib test) generated 4 warnings (4 duplicates)
+error: could not compile `anaheim` (lib test) due to 4 previous errors; 4 warnings emitted
